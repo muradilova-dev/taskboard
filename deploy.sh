@@ -18,3 +18,23 @@ for pkg in $REQUIRED_PKG; do
     sudo apt-get update -y && sudo apt-get install -y $pkg
     fi
 done
+
+echo "=== [2/7] set2 ==="
+if [ ! -f "requirements.txt" ]; then
+   if [ ! -d "$APP_DIR" ]; then
+       git clone "$REPOSITORY_URL" "$APP_DIR"
+       cd "$APP_DIR"
+   else 
+       cd "$APP_DIR"
+   fi
+fi
+
+echo "=== [3/7] Virtual okrujenie ==="
+if [ ! -d ".venv" ]; then
+    python3 -m venv .venv
+fi
+
+echo "===[4/7] downloanding python ==="
+.venv/bin/pip install --upgrade pip
+.venv/bin/pip install -r requirements.txt
+
